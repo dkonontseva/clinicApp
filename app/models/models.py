@@ -27,7 +27,6 @@ class Users(Base):
     role_id = Column(Integer, ForeignKey('roles.id'))
     patients = relationship('Patients', backref='users', uselist=False)
     doctors = relationship('Doctors', backref='users', uselist=False)
-    roles = relationship('Roles', backref='users')
     chat_messages = relationship('ChatMessages', backref='users')
 
 class Patients(Base):
@@ -49,10 +48,11 @@ class Doctors(Base):
     user_id = Column(Integer, ForeignKey('users._id'))
     address_id = Column(Integer, ForeignKey('addresses._id'))
     department_id = Column(Integer, ForeignKey('departments._id'))
+    education_id = Column(Integer, ForeignKey('education._id'))
     doctor_leaves = relationship('DoctorLeaves', backref='doctors')
     medical_cards = relationship('MedicalCards', backref='doctors')
     talons = relationship('Talons', backref='doctors')
-    schedules = relationship('Schedule', backref='doctors')
+    schedules = relationship('Schedules', backref='doctors')
 
 class Addresses(Base):
     __tablename__ = 'addresses'
@@ -65,7 +65,6 @@ class Addresses(Base):
     flat_number = Column(String, nullable=False)
     doctors = relationship('Doctors', backref='addresses')
     patients = relationship('Patients', backref='addresses')
-    educations = relationship('Education', backref='addresses')
 
 class Departments(Base):
     __tablename__ = 'departments'
@@ -93,7 +92,7 @@ class DoctorLeaves(Base):
     leave_type = Column(String, nullable=False)
     reason = Column(String, nullable=False)
     status = Column(String, nullable=False)
-    doctors = relationship('Doctors', backref='doctor_leaves')
+    doctor_id = Column(Integer, ForeignKey('doctors._id'))
 
 
 class Education(Base):

@@ -23,8 +23,8 @@ class UserSchema(BaseSchema):
     password: str = Field(min_length=8, max_length=30, description="пароль должен содержать от 8 до 30 символов")
     first_name: str = Field(min_length=3, max_length=100, description="Имя пользователя должно содержать от 3 до 100 символов")
     last_name: str = Field(min_length=3, max_length=100, description="Имя пользователя должно содержать от 3 до 100 символов")
-    second_name: str | None = Field(default=None, min_length=3, max_length=100, description="Имя пользователя должно содержать от 3 до 100 символов")
-    phone_number: str = Field(regex = r"^\+375(29|33|44|25)\d{7}$", description="Номер телефона должен быть в формате +123456789")
+    second_name: str = Field(default=None, min_length=3, max_length=100, description="Имя пользователя должно содержать от 3 до 100 символов")
+    phone_number: str = Field(pattern = r"^\+375(29|33|44|25)\d{7}$", description="Номер телефона должен быть в формате +123456789")
     gender: str
     role_id: int
 
@@ -53,7 +53,12 @@ class UserSchema(BaseSchema):
         return value
 
     model_config = ConfigDict(from_attributes=True)
-    
+
+class UserAuthSchema(BaseModel):
+    login: EmailStr = Field(min_length=3, max_length=100, description="Имя пользователя должно содержать от 3 до 100 символов")
+    password: str = Field(min_length=8, max_length=30, description="пароль должен содержать от 8 до 30 символов")
+
+
 class PatientSchema(BaseSchema):
     b_date: date
     user_id: int
