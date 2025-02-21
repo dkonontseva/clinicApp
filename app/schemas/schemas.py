@@ -20,7 +20,7 @@ class RoleSchema(BaseSchema):
 
 class UserSchema(BaseSchema):
     login: EmailStr = Field(min_length=3, max_length=100, description="Имя пользователя должно содержать от 3 до 100 символов")
-    password: str = Field(min_length=8, max_length=30, description="пароль должен содержать от 8 до 30 символов")
+    password: str = Field(min_length=8, description="пароль должен содержать от 8 до 30 символов")
     first_name: str = Field(min_length=3, max_length=100, description="Имя пользователя должно содержать от 3 до 100 символов")
     last_name: str = Field(min_length=3, max_length=100, description="Имя пользователя должно содержать от 3 до 100 символов")
     second_name: str = Field(default=None, min_length=3, max_length=100, description="Имя пользователя должно содержать от 3 до 100 символов")
@@ -99,9 +99,9 @@ class DoctorLeaveSchema(BaseSchema):
 
 
 class EducationSchema(BaseSchema):
-    university: str = Field(min_length=20, max_length=200)
-    faculty: str = Field(min_length=20, max_length=200)
-    speciality: str = Field(min_length=20, max_length=200)
+    university: str = Field(min_length=5, max_length=50)
+    faculty: str = Field(min_length=10, max_length=200)
+    speciality: str = Field(min_length=10, max_length=200)
 
 
 class MedicalCardSchema(BaseSchema):

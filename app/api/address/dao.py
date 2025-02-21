@@ -4,25 +4,25 @@ from sqlalchemy.exc import SQLAlchemyError
 
 from app.api.dao import BaseDAO
 from app.core.database import async_session_maker
-from app.models.models import Users
+from app.models.models import Addresses
 
 
-class UsersDAO(BaseDAO):
-    model = Users
+class AddressDAO(BaseDAO):
+    model = Addresses
 
     @classmethod
-    async def update(cls, user_id: int, update_data: dict):
+    async def update(cls, address_id: int, update_data: dict):
         async with async_session_maker() as session:
             async with session.begin():
-                query = select(cls.model).filter_by(_id=user_id)
+                query = select(cls.model).filter_by(_id=address_id)
                 result = await session.execute(query)
-                user = result.scalar_one_or_none()
+                address = result.scalar_one_or_none()
 
-                if not user:
-                    raise HTTPException(status_code=404, detail="Пользователь не найден")
+                if not address:
+                    raise HTTPException(status_code=404, detail="Адрес не найден")
 
                 for key, value in update_data.items():
-                    setattr(user, key, value)
+                    setattr(address, key, value)
 
                 await session.commit()
 
