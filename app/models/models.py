@@ -27,7 +27,6 @@ class Users(Base):
     role_id = Column(Integer, ForeignKey('roles.id'))
     patients = relationship('Patients', back_populates='users', uselist=False, passive_deletes=True)
     doctors = relationship('Doctors', back_populates='users', uselist=False)
-    chat_messages = relationship('ChatMessages', back_populates='users')
     roles = relationship('Roles', back_populates='users')
 
 class Patients(Base):
@@ -48,7 +47,7 @@ class Doctors(Base):
     _id = Column(Integer, primary_key=True, autoincrement=True)
     start_date=Column(Date, nullable=False)
     birthday=Column(Date, nullable=False)
-    user_id = Column(Integer, ForeignKey('users._id'))
+    user_id = Column(Integer, ForeignKey('users._id', ondelete='CASCADE'))
     address_id = Column(Integer, ForeignKey('addresses._id'))
     department_id = Column(Integer, ForeignKey('departments._id'))
     education_id = Column(Integer, ForeignKey('education._id'))
@@ -60,6 +59,7 @@ class Doctors(Base):
     medical_cards = relationship('MedicalCards', back_populates='doctors')
     talons = relationship('Talons', back_populates='doctors')
     schedules = relationship('Schedules', back_populates='doctors')
+    chat_messages = relationship('ChatMessages', back_populates='doctors')
 
 class Addresses(Base):
     __tablename__ = 'addresses'
@@ -69,7 +69,7 @@ class Addresses(Base):
     city = Column(String, nullable=False)
     street = Column(String, nullable=False)
     house_number = Column(String, nullable=False)
-    flat_number = Column(String, nullable=False)
+    flat_number = Column(Integer, nullable=False)
     doctors = relationship('Doctors', back_populates='addresses')
     patients = relationship('Patients', back_populates='addresses')
 
@@ -99,7 +99,7 @@ class DoctorLeaves(Base):
     leave_type = Column(String, nullable=False)
     reason = Column(String, nullable=False)
     status = Column(String, nullable=False)
-    doctor_id = Column(Integer, ForeignKey('doctors._id'))
+    doctor_id = Column(Integer, ForeignKey('doctors._id', ondelete='CASCADE'))
     doctors = relationship('Doctors', back_populates='doctor_leaves')
 
 
@@ -121,9 +121,9 @@ class MedicalCards(Base):
     complaints = Column(String, nullable=False)
     wellness_check = Column(String, nullable=False)
     diagnosis = Column(String, nullable=False)
-    doctor_id = Column(Integer, ForeignKey('doctors._id'))
+    doctor_id = Column(Integer, ForeignKey('doctors._id', ondelete='CASCADE'))
     doctors = relationship('Doctors', back_populates='medical_cards')
-    patient_id = Column(Integer, ForeignKey('patients._id'))
+    patient_id = Column(Integer, ForeignKey('patients._id', ondelete='CASCADE'))
     patients = relationship('Patients', back_populates='medical_cards')
 
 
@@ -154,9 +154,8 @@ class Talons(Base):
     date = Column(Date, nullable=False)
     time = Column(Time, nullable=False)
     status = Column(String, nullable=False)
-    purpose = Column(String)
-    patient_id = Column(Integer, ForeignKey('patients._id'))
-    doctor_id = Column(Integer, ForeignKey('doctors._id'))
+    patient_id = Column(Integer, ForeignKey('patients._id', ondelete='CASCADE'))
+    doctor_id = Column(Integer, ForeignKey('doctors._id', ondelete='CASCADE'))
     service_id = Column(Integer, ForeignKey('services._id'))
     patients = relationship('Patients', back_populates='talons')
     doctors = relationship('Doctors', back_populates='talons')
@@ -169,7 +168,7 @@ class ChatMessages(Base):
     _id = Column(Integer, primary_key=True, autoincrement=True)
     message = Column(String, nullable=False)
     timestapm = Column(DateTime, default=datetime.now)
-    user_id = Column(Integer, ForeignKey('users._id'))
-    users = relationship('Users', back_populates='chat_messages')
+    doctor_id = Column(Integer, ForeignKey('doctors._id', ondelete='CASCADE'))
+    doctors = relationship('Doctors', back_populates='chat_messages')
 
 

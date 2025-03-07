@@ -99,9 +99,9 @@ class DoctorLeaveSchema(BaseSchema):
 
 
 class EducationSchema(BaseSchema):
-    university: str = Field(min_length=5, max_length=50)
-    faculty: str = Field(min_length=10, max_length=200)
-    speciality: str = Field(min_length=10, max_length=200)
+    university: str = Field(min_length=3, max_length=50)
+    faculty: str = Field(min_length=5, max_length=200)
+    speciality: str = Field(min_length=8, max_length=200)
 
 
 class MedicalCardSchema(BaseSchema):
@@ -128,7 +128,6 @@ class TalonSchema(BaseSchema):
     date: date
     time: time
     status: str
-    purpose: Optional[str]
     patient_id: int
     doctor_id: int
     service_id: int

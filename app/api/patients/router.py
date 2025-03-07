@@ -1,9 +1,15 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from datetime import date
+from typing import Optional
 
+from fastapi import APIRouter, Depends, HTTPException, status, Query
 from app.api.address.dao import AddressDAO
 from app.api.auth.dao import UsersDAO
+from app.api.medical_cards.dao import MedicalCardsDAO
+from app.api.medical_cards.schema import MedicalCardResponseSchema
 from app.api.patients.dao import PatientsDAO
 from app.api.patients.schemas import PatientResponseSchema, PatientCreateSchema, PatientUpdateSchema
+from app.api.talons.dao import AppointmentsDAO
+from app.schemas.schemas import TalonSchema
 
 router = APIRouter(prefix='/patients', tags=['Patient'])
 
@@ -12,8 +18,8 @@ async def get_all_patients():
     patients= await PatientsDAO.get_full_data()
     return patients
 
-@router.get('/{id}', summary="Получить пациента по id", response_model=PatientResponseSchema)
-async def get_patient(id: int):
+@router.get('/patient', summary="Получить пациента по id", response_model=PatientResponseSchema)
+async def get_patient(id: int = Query(...)):
     patient = await PatientsDAO.get_by_id(int(id))
     if not patient:
         raise HTTPException(
@@ -53,3 +59,23 @@ async def update_patients(patient_id: int, request: PatientUpdateSchema) -> dict
         await AddressDAO.update(address_id, request.addresses.model_dump(exclude_unset=True))
 
     return {"message": "Данные пациента успешно обновлены"}
+
+@router.get("/myCards", response_model = list[MedicalCardResponseSchema], summary='Список всех записей в картах конкретного пациента')
+async def get_patient_cards(patient_id: int = Query(...)):
+    return await MedicalCardsDAO.get_cards_for_patient(patient_id)
+
+
+@router.get("/get_future_talon", response_model=list[TalonSchema], summary='Список всех будущих визитов пациента')
+async def get_for_patient(patient_id: int = Query(...)):
+    return await AppointmentsDAO.get_for_patient(patient_id)
+
+@router.get("/search/medical_cards", response_model=list[MedicalCardResponseSchema], summary='Поиск по мед картам для пациента')
+async def get_patient_medical_cards(patient_name: str = Query(...)):
+    return await MedicalCardsDAO.search(None, patient_name)
+
+@router.get("/admin/search/", response_model=list[PatientResponseSchema], summary='Поиск по пациентам')
+async def search_patient(patient_name: Optional[str] = Query(None)):
+    return await PatientsDAO.search_patients(patient_name)
+
+
+

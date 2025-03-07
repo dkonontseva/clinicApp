@@ -1,5 +1,7 @@
+from typing import Optional
+
 from fastapi import HTTPException
-from sqlalchemy import select, delete, update
+from sqlalchemy import select, delete, update, and_, or_
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import contains_eager, joinedload
@@ -112,4 +114,44 @@ class PatientsDAO(BaseDAO):
             await session.commit()
             await session.refresh(patient)
             return user_id, address_id
+
+    @classmethod
+    async def search_patients(cls, full_name: Optional[str]=None):
+        async with async_session_maker() as session:
+            query = (
+                select(cls.model)
+                .join(Users)
+                .options(joinedload(cls.model.users), joinedload(cls.model.addresses))
+            )
+            filters = []
+
+            if full_name:
+                name_parts = full_name.split()
+                name_conditions = []
+
+                if len(name_parts) == 3:
+                    last_name, first_name, second_name = name_parts
+                    name_conditions.append(or_(
+                        Users.last_name.ilike(f"%{last_name}%"),
+                        Users.first_name.ilike(f"%{first_name}%"),
+                        Users.second_name.ilike(f"%{second_name}%")
+                    ))
+                elif len(name_parts) == 2:
+                    first_name, last_name = name_parts
+                    name_conditions.append(and_(
+                        Users.first_name.ilike(f"%{first_name}%"),
+                        Users.last_name.ilike(f"%{last_name}%")
+                    ))
+                else:
+                    name_conditions.append(
+                        Users.last_name.ilike(f"%{full_name}%")
+                    )
+
+                filters.append(and_(*name_conditions))
+
+            if filters:
+                query = query.where(and_(*filters))
+
+            result = await session.execute(query)
+            return result.scalars().all()
 
