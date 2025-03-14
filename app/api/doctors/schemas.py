@@ -3,7 +3,7 @@ from typing import Optional, List
 
 from pydantic import BaseModel, EmailStr
 
-from app.schemas.schemas import BaseSchema, UserSchema, AddressSchema, DepartmentSchema, EducationSchema, TalonSchema
+from clinicApp.app.schemas.schemas import BaseSchema, UserSchema, AddressSchema, DepartmentSchema, EducationSchema, TalonSchema
 
 
 class DoctorResponseSchema(BaseModel):

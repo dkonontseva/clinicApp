@@ -5,11 +5,11 @@ from fastapi import HTTPException
 from sqlalchemy import select, delete, update, and_, or_
 from sqlalchemy.orm import contains_eager, joinedload
 
-from app.api.auth.auth import get_password_hash
-from app.api.dao import BaseDAO
-from app.api.doctors.schemas import DoctorUpdateSchema
-from app.core.database import async_session_maker
-from app.models.models import Users, Addresses, Doctors, Education, Talons, Departments
+from clinicApp.app.api.auth.auth import get_password_hash
+from clinicApp.app.api.dao import BaseDAO
+from clinicApp.app.api.doctors.schemas import DoctorUpdateSchema
+from clinicApp.app.core.database import async_session_maker
+from clinicApp.app.models.models import Users, Addresses, Doctors, Education, Talons, Departments
 
 
 class DoctorsDAO(BaseDAO):

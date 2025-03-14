@@ -3,9 +3,9 @@ from sqlalchemy.orm import Session, selectinload, joinedload
 from sqlalchemy.future import select
 from datetime import datetime
 
-from app.api.chat.clientManager import ConnectionManager
-from app.core.database import async_session_maker
-from app.models.models import ChatMessages, Doctors, Users, Departments
+from clinicApp.app.api.chat.clientManager import ConnectionManager
+from clinicApp.app.core.database import async_session_maker
+from clinicApp.app.models.models import ChatMessages, Doctors, Users, Departments
 
 router = APIRouter(prefix="/chat", tags=["Chat"])
 manager = ConnectionManager()

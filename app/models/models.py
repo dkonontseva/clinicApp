@@ -3,7 +3,7 @@ from datetime import datetime
 from sqlalchemy import Column, Integer, Time, DateTime, String, ForeignKey, SmallInteger, Float, Date
 from sqlalchemy.orm import declarative_base, relationship
 
-from app.core.database import engine, Base
+from clinicApp.app.core.database import engine, Base
 
 
 class Roles(Base):

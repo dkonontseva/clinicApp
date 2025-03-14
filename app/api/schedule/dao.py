@@ -3,10 +3,10 @@ from typing import Optional
 from fastapi import HTTPException
 from sqlalchemy import select, delete, and_, or_
 
-from app.api.schedule.schema import ScheduleResponse, ScheduleUpdate
-from app.core.database import async_session_maker
-from app.models.models import Schedules, Doctors, Departments, Shifts, Users
-from app.schemas.schemas import ScheduleSchema
+from clinicApp.app.api.schedule.schema import ScheduleResponse, ScheduleUpdate
+from clinicApp.app.core.database import async_session_maker
+from clinicApp.app.models.models import Schedules, Doctors, Departments, Shifts, Users
+from clinicApp.app.schemas.schemas import ScheduleSchema
 
 
 class ScheduleDAO:

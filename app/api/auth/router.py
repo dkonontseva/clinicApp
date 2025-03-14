@@ -1,11 +1,11 @@
 from fastapi import APIRouter, HTTPException, status, Depends
 from fastapi.responses import Response
 
-from app.api.auth.auth import authenticate_user, get_password_hash, create_access_token
-from app.api.auth.dao import UsersDAO
-from app.api.auth.dependencies import get_current_user, get_current_admin_user
-from app.models.models import Users
-from app.schemas.schemas import UserSchema, UserAuthSchema
+from clinicApp.app.api.auth.auth import authenticate_user, get_password_hash, create_access_token
+from clinicApp.app.api.auth.dao import UsersDAO
+from clinicApp.app.api.auth.dependencies import get_current_user, get_current_admin_user
+from clinicApp.app.models.models import Users
+from clinicApp.app.schemas.schemas import UserSchema, UserAuthSchema
 
 router = APIRouter(prefix='/auth', tags=['Auth'])
 

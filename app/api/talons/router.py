@@ -1,15 +1,22 @@
+import os
 from datetime import date
 from typing import Optional
 
+from aiokafka import AIOKafkaProducer
 from fastapi import APIRouter, Query, HTTPException
 
-from app.api.doctors.schemas import DoctorResponseSchema
-from app.api.talons.dao import AppointmentsDAO
-from app.api.talons.schema import AvailableSlotsResponse, AppointmentCreate, DoctorAppointmentsResponse, \
+from clinicApp.app.api.doctors.schemas import DoctorResponseSchema
+from clinicApp.app.api.talons.dao import AppointmentsDAO
+from clinicApp.app.api.talons.schema import AvailableSlotsResponse, AppointmentCreate, DoctorAppointmentsResponse, \
     AppointmentResponse
-from app.schemas.schemas import TalonSchema
+from clinicApp.app.schemas.schemas import TalonSchema
 
 router = APIRouter(prefix='/appointments', tags=['Appointments'])
+
+KAFKA_BOOTSTRAP_SERVERS =  os.getenv("KAFKA_BOOTSTRAP_SERVERS")
+
+
+producer = AIOKafkaProducer(bootstrap_servers=KAFKA_BOOTSTRAP_SERVERS)
 
 @router.get("/get_all", response_model=list[AppointmentResponse], summary="Получить все записи")
 async def find_appointments(doctor_name: Optional[str] = None, from_date: Optional[date] = None,
@@ -52,3 +59,4 @@ async def get_doctors_for_appointments(
         department: str = Query(default=""),
         doctor_search: str = Query(default="")):
     return await AppointmentsDAO.find_appointments(patient_id, requested_date, department, doctor_search)
+

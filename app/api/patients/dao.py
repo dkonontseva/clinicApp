@@ -6,11 +6,11 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import contains_eager, joinedload
 
-from app.api.auth.auth import get_password_hash
-from app.api.dao import BaseDAO
-from app.api.patients.schemas import PatientCreateSchema, PatientUpdateSchema
-from app.core.database import async_session_maker
-from app.models.models import Patients, Users, Addresses
+from clinicApp.app.api.auth.auth import get_password_hash
+from clinicApp.app.api.dao import BaseDAO
+from clinicApp.app.api.patients.schemas import PatientCreateSchema, PatientUpdateSchema
+from clinicApp.app.core.database import async_session_maker
+from clinicApp.app.models.models import Patients, Users, Addresses
 
 
 class PatientsDAO(BaseDAO):

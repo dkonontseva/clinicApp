@@ -2,8 +2,8 @@ from typing import Optional
 
 from sqlalchemy import select, or_, and_
 
-from app.core.database import async_session_maker
-from app.models.models import MedicalCards, Patients, Doctors, Users
+from clinicApp.app.core.database import async_session_maker
+from clinicApp.app.models.models import MedicalCards, Patients, Doctors, Users
 
 class MedicalCardsDAO:
 
@@ -19,7 +19,7 @@ class MedicalCardsDAO:
                 date=note_data.date,
                 complaints=note_data.complaints,
                 wellness_check=note_data.wellness_check,
-                diagnosis=note_data.disease,
+                diagnosis=note_data.diagnosis,
             )
             session.add(new_note)
             await session.commit()

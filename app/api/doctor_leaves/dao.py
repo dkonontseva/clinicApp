@@ -4,8 +4,8 @@ from typing import Optional
 from sqlalchemy import select, delete, and_, or_
 from sqlalchemy.orm import joinedload
 
-from app.core.database import async_session_maker
-from app.models.models import DoctorLeaves, Doctors, Users
+from clinicApp.app.core.database import async_session_maker
+from clinicApp.app.models.models import DoctorLeaves, Doctors, Users
 
 
 class DoctorLeavesDao:

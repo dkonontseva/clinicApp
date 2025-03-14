@@ -3,10 +3,10 @@ import hmac
 
 import jwt
 from pydantic import EmailStr
-from app.api.auth.dao import UsersDAO
+from clinicApp.app.api.auth.dao import UsersDAO
 from datetime import datetime, timezone, timedelta
 
-from app.core.config import get_auth_data
+from clinicApp.app.core.config import get_auth_data
 
 
 SALT = get_auth_data()['salt']

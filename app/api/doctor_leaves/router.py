@@ -3,8 +3,8 @@ from typing import Optional
 
 from fastapi import APIRouter, Query, HTTPException
 
-from app.api.doctor_leaves.dao import DoctorLeavesDao
-from app.api.doctor_leaves.schema import DoctorLeaveUpdateSchema, DoctorLeaveAddSchema, DoctorLeaveAllSchema
+from clinicApp.app.api.doctor_leaves.dao import DoctorLeavesDao
+from clinicApp.app.api.doctor_leaves.schema import DoctorLeaveUpdateSchema, DoctorLeaveAddSchema, DoctorLeaveAllSchema
 
 router = APIRouter(prefix='/doctor_leaves', tags=['Doctor Leaves'])
 

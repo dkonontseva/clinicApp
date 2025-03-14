@@ -2,14 +2,14 @@ from datetime import date
 from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, status, Query
-from app.api.address.dao import AddressDAO
-from app.api.auth.dao import UsersDAO
-from app.api.medical_cards.dao import MedicalCardsDAO
-from app.api.medical_cards.schema import MedicalCardResponseSchema
-from app.api.patients.dao import PatientsDAO
-from app.api.patients.schemas import PatientResponseSchema, PatientCreateSchema, PatientUpdateSchema
-from app.api.talons.dao import AppointmentsDAO
-from app.schemas.schemas import TalonSchema
+from clinicApp.app.api.address.dao import AddressDAO
+from clinicApp.app.api.auth.dao import UsersDAO
+from clinicApp.app.api.medical_cards.dao import MedicalCardsDAO
+from clinicApp.app.api.medical_cards.schema import MedicalCardResponseSchema
+from clinicApp.app.api.patients.dao import PatientsDAO
+from clinicApp.app.api.patients.schemas import PatientResponseSchema, PatientCreateSchema, PatientUpdateSchema
+from clinicApp.app.api.talons.dao import AppointmentsDAO
+from clinicApp.app.schemas.schemas import TalonSchema
 
 router = APIRouter(prefix='/patients', tags=['Patient'])
 

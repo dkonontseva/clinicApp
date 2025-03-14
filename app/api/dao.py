@@ -1,7 +1,7 @@
 from sqlalchemy import select
 from sqlalchemy.exc import SQLAlchemyError
 
-from app.core.database import async_session_maker
+from clinicApp.app.core.database import async_session_maker
 
 
 class BaseDAO:

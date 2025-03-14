@@ -9,11 +9,11 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 from alembic import context
 from os.path import dirname, abspath
 
-from app.core.database import Base, DATABASE_URL
+from clinicApp.app.core.database import Base, DATABASE_URL
 
 sys.path.insert(0, dirname(dirname(abspath(__file__))))
 
-import app.models.models
+import clinicApp.app.models.models
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

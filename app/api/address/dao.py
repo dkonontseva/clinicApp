@@ -2,9 +2,9 @@ from fastapi import HTTPException
 from sqlalchemy import update, select
 from sqlalchemy.exc import SQLAlchemyError
 
-from app.api.dao import BaseDAO
-from app.core.database import async_session_maker
-from app.models.models import Addresses
+from clinicApp.app.api.dao import BaseDAO
+from clinicApp.app.core.database import async_session_maker
+from clinicApp.app.models.models import Addresses
 
 
 class AddressDAO(BaseDAO):

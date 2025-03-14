@@ -4,9 +4,9 @@ import base64
 import json
 from datetime import datetime, timezone, timedelta
 from fastapi import Request, HTTPException, status, Depends
-from app.api.auth.dao import UsersDAO
-from app.core.config import get_auth_data
-from app.models.models import Users
+from clinicApp.app.api.auth.dao import UsersDAO
+from clinicApp.app.core.config import get_auth_data
+from clinicApp.app.models.models import Users
 
 
 def get_token(request: Request):

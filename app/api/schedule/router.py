@@ -1,9 +1,9 @@
 from typing import Optional
 
 from fastapi import APIRouter, Query, HTTPException
-from app.api.schedule.dao import ScheduleDAO
-from app.api.schedule.schema import ScheduleResponse, ScheduleUpdate
-from app.schemas.schemas import ScheduleSchema
+from clinicApp.app.api.schedule.dao import ScheduleDAO
+from clinicApp.app.api.schedule.schema import ScheduleResponse, ScheduleUpdate
+from clinicApp.app.schemas.schemas import ScheduleSchema
 
 router = APIRouter(prefix='/schedule', tags=['Schedule'])
 

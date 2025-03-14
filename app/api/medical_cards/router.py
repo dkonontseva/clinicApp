@@ -1,11 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 
-from app.api.address.dao import AddressDAO
-from app.api.auth.dao import UsersDAO
-from app.api.doctors.dao import DoctorsDAO
-from app.api.doctors.schemas import DoctorResponseSchema, DoctorUpdateSchema, DoctorDashboardSchema
-from app.api.medical_cards.dao import MedicalCardsDAO
-from app.schemas.schemas import MedicalCardSchema
+from clinicApp.app.api.medical_cards.dao import MedicalCardsDAO
+from clinicApp.app.schemas.schemas import MedicalCardSchema
 
 router = APIRouter(prefix='/medical_card', tags=['Medical Card'])
 

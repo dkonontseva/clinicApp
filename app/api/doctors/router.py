@@ -3,14 +3,14 @@ from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 
-from app.api.address.dao import AddressDAO
-from app.api.auth.dao import UsersDAO
-from app.api.doctor_leaves.dao import DoctorLeavesDao
-from app.api.doctor_leaves.schema import DoctorLeaveAllSchema
-from app.api.doctors.dao import DoctorsDAO
-from app.api.doctors.schemas import DoctorResponseSchema, DoctorUpdateSchema, DoctorDashboardSchema
-from app.api.medical_cards.dao import MedicalCardsDAO
-from app.api.medical_cards.schema import MedicalCardResponseSchema
+from clinicApp.app.api.address.dao import AddressDAO
+from clinicApp.app.api.auth.dao import UsersDAO
+from clinicApp.app.api.doctor_leaves.dao import DoctorLeavesDao
+from clinicApp.app.api.doctor_leaves.schema import DoctorLeaveAllSchema
+from clinicApp.app.api.doctors.dao import DoctorsDAO
+from clinicApp.app.api.doctors.schemas import DoctorResponseSchema, DoctorUpdateSchema, DoctorDashboardSchema
+from clinicApp.app.api.medical_cards.dao import MedicalCardsDAO
+from clinicApp.app.api.medical_cards.schema import MedicalCardResponseSchema
 
 router = APIRouter(prefix='/doctors', tags=['doctor'])
 
